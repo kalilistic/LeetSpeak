@@ -1,6 +1,6 @@
 {
     "Author": "kalilistic",
-    "Name": "Sample",
+    "Name": "<%name%>",
     "Description": "This is a sample plugin.",
     "InternalName": "Sample",
     "AssemblyVersion": "<%version%>",
