@@ -1,0 +1,11 @@
+{
+    "Author": "kalilistic",
+    "Name": "LeetSpeak",
+    "Description": "1337 7|24/\/5|_470|2 F0|2 '/0|_||2 (|-|47.",
+    "InternalName": "LeetSpeak",
+    "AssemblyVersion": "<%version%>",
+    "RepoUrl": "https://github.com/kalilistic/1337",
+    "Tags": ["leet", "1337", "translate"],
+    "ApplicableVersion": "any",
+    "DalamudApiLevel": "2"
+}
