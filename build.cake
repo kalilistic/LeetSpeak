@@ -42,8 +42,27 @@ Task("Build")
         MSBuild ("./src/" + pluginName + "/" + pluginName + ".csproj", settings => settings.SetConfiguration (configuration));
 });
 
-Task("Publish-Custom-Repo")
+Task("Publish-Official-Repo")
     .IsDependentOn ("Build")
+    .Does(() => {
+
+        // package
+        CreateDirectory("./src/" + pluginName + "/bin/latest");
+        CopyFile("./src/" + pluginName + "/bin/" + pluginName + ".json", "./src/" + pluginName + "/bin/latest/" + pluginName + ".json");
+        CopyFile("./src/" + pluginName + "/bin/" + pluginName + ".dll", "./src/" + pluginName + "/bin/latest/" + pluginName + ".dll");
+        Zip("./src/" + pluginName + "/bin/latest", "./src/" + pluginName + "/bin/latest.zip");
+        Information("Packaged plugin for publishing to official repo.");
+
+        // copy to official repo workspace
+        EnsureDirectoryExists("../DalamudPlugins/plugins/" + pluginName);
+        CleanDirectory("../DalamudPlugins/plugins/" + pluginName);
+        CopyFile("./src/" + pluginName + "/bin/" + pluginName + ".json", "../DalamudPlugins/plugins/" + pluginName + "/" + pluginName + ".json");
+        CopyFile("./src/" + pluginName + "/bin/latest.zip", "../DalamudPlugins/plugins/" + pluginName + "/latest.zip");
+        Information("Copied package into official plugin workspace.");
+});
+
+Task("Publish-Custom-Repo")
+    .IsDependentOn ("Publish-Official-Repo")
     .Does(() => {
 
         // create new json for test version
@@ -81,6 +100,7 @@ Task ("Default")
     .IsDependentOn ("Update-Assembly-Info")
     .IsDependentOn ("Update-Plugin-Json")
     .IsDependentOn ("Build")
+    .IsDependentOn ("Publish-Official-Repo")
     .IsDependentOn ("Publish-Custom-Repo")
     .IsDependentOn ("Cleanup");
 

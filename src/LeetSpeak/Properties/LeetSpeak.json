@@ -1,6 +1,6 @@
 {
     "Author": "kalilistic",
-    "Name": "LeetSpeak",
+    "Name": "<%name%>",
     "Description": "Translate your chat to 1337.",
     "InternalName": "LeetSpeak",
     "AssemblyVersion": "<%version%>",
